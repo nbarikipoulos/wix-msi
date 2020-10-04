@@ -1,0 +1,40 @@
+{
+  "name": "wix-msi",
+  "version": "0.1.0",
+  "description": "Pack node.js bin to a standalone executable and pack it in a msi installer",
+  "bin": {
+    "wix-msi": "./bin/cli.js"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "standard"
+  },
+  "homepage": "https://github.com/nbarikipoulos/json-cipher-value#readme",
+  "author": "Nicolas Barriquand <nicolas.barriquand@outlook.fr>",
+  "license": "MIT",
+  "keywords": [
+    "wix",
+    "wixtoolset",
+    "msi",
+    "msi installer",
+    "cli",
+    "bin",
+    "npm",
+    "node"
+  ],
+  "dependencies": {
+    "mustache": "^4.0.1",
+    "pkg": "^4.4.9",
+    "uuid": "^8.3.0",
+    "xmlbuilder2": "^2.3.1",
+    "yargs": "^16.0.3"
+  },
+  "devDependencies": {
+    "standard": "*"
+  },
+  "files": [
+    "/lib",
+    "/cli",
+    "/assets"
+  ]
+}
