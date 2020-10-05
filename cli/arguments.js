@@ -3,7 +3,6 @@
 'use strict'
 
 const { validate: uuidValidate } = require('uuid')
-// const DEFAULT_CONNECTION_SETTINGS = require('poppy-robot-core').DEFAULT_CONNECTION_SETTINGS
 
 module.exports = [{
   key: 'l',
