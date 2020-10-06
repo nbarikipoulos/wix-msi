@@ -1,7 +1,7 @@
 {
   "name": "wix-msi",
   "version": "0.1.1",
-  "description": "Pack node.js bin to a standalone executable and pack it in a msi installer",
+  "description": "Package node.js application to a standalone executable (i.e. that does not require node.js installed) and pack it into a msi installer",
   "bin": {
     "wix-msi": "./bin/cli.js"
   },
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "standard"
   },
-  "homepage": "https://github.com/nbarikipoulos/json-cipher-value#readme",
+  "homepage": "https://github.com/nbarikipoulos/wix-msi#readme",
   "author": "Nicolas Barriquand <nicolas.barriquand@outlook.fr>",
   "license": "MIT",
   "keywords": [
@@ -20,7 +20,9 @@
     "cli",
     "bin",
     "npm",
-    "node"
+    "node",
+    "exe",
+    "executable"
   ],
   "dependencies": {
     "mustache": "^4.0.1",
@@ -36,5 +38,14 @@
     "/lib",
     "/cli",
     "/assets"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nbarikipoulos/wix-msi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nbarikipoulos/wix-msi/issues"
+  },
+  "os": ["win32"],
+  "cpu": ["x64"]
 }
