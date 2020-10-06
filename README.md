@@ -28,9 +28,8 @@ npm i wix-msi -g
 ## Use
 
 ```shell
-wix-msi target_bin -u xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+wix-msi target_bin
 ```
-where xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  is the unique identifier of the product.
 
 ## Options
 
@@ -43,7 +42,7 @@ option | desc | value | default
 -i / --ico | Icon displayed in application panel (.ico file) | path | assets/prompt.ico from this module
 -b / --banner | Top banner displayed in msi panels (493x58 jpg file) | path | assets/banner.jpg from this module
 -B / --background | Background displayed in msi panels (493x312 jpg file) | path | assets/background.jpg from this module
--U / --uuid | Product unique identifier | uuid  | n.a.
+-U / --uuid | Product unique identifier | uuid  | automatically generated if not provided (and saved in wixrc file)
 -s / --save | Save settings in .wixrc file | boolean  | n.a.
 
 ## Rc file
@@ -59,14 +58,11 @@ A .wixrc file could be use to store options:
 }
 ```
 
-## API
-
-To write...
+Or will be generated using the -s/--save option.
 
 ## Known Limitations
 
-- Package version should follow the x.y.z format (it does not work with beta/rc or other usual prefix of node module version),
-- Provide through the -U flag the **same product unique identifier** or store it in the .wixrc file.
+- Package version should follow the x.y.z format (it does not work with beta/rc or other usual prefix of node module version).
 
 
 

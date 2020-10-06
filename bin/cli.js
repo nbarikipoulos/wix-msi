@@ -8,6 +8,7 @@ const fs = require('fs')
 const path = require('path')
 
 const yargs = require('yargs')
+const { v4: generateUuid } = require('uuid')
 
 const args = require('../cli/arguments')
 const createMSI = require('../index')
@@ -73,10 +74,17 @@ const rc = loadRCFile(RC_FILE)
 const name = argv._[0]
 const options = { ...rc[name], ..._argv() }
 
-createMSI(name, options).then(_ => argv.save
+let shouldSave = argv.save
+
+if (!('uuid' in options)) {
+  options.uuid = generateUuid()
+  shouldSave = true
+}
+
+createMSI(name, options).then(_ => shouldSave
   ? fs.promises.writeFile(
     path.resolve(process.cwd(), RC_FILE),
-    JSON.stringify(options, null, 2)
+    JSON.stringify({ [name]: options }, null, 2)
   )
   : Promise.resolve(null)
 )
