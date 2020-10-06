@@ -4,10 +4,21 @@
 
 'use strict'
 
+const fs = require('fs')
+const path = require('path')
+
 const yargs = require('yargs')
 
 const args = require('../cli/arguments')
-const toMSI = require('../index')
+const createMSI = require('../index')
+
+const RC_FILE = '.wixrc'
+
+// ////////////////////////////////
+// ////////////////////////////////
+// Build CLI
+// ////////////////////////////////
+// ////////////////////////////////
 
 yargs
   .locale('en')
@@ -21,8 +32,6 @@ yargs
 args.forEach(arg => yargs.option(arg.key, arg.details))
 
 const argv = yargs.argv
-
-const name = argv._[0]
 
 const _argv = _ => {
   const result = {
@@ -42,4 +51,32 @@ const _argv = _ => {
   return result
 }
 
-toMSI(name, _argv())
+const loadRCFile = (file) => {
+  let option = {}
+  try {
+    const buffer = fs.readFileSync(
+      path.resolve(process.cwd(), file),
+      'utf8'
+    )
+    option = JSON.parse(buffer)
+  } catch (error) { /* Do nothing */ }
+  return option
+}
+
+// ////////////////////////////////
+// ////////////////////////////////
+// Main job
+// ////////////////////////////////
+// ////////////////////////////////
+
+const rc = loadRCFile(RC_FILE)
+const name = argv._[0]
+const options = { ...rc[name], ..._argv() }
+
+createMSI(name, options).then(_ => argv.save
+  ? fs.promises.writeFile(
+    path.resolve(process.cwd(), RC_FILE),
+    JSON.stringify(options, null, 2)
+  )
+  : Promise.resolve(null)
+)

@@ -5,8 +5,8 @@
 const createConfig = require('./lib/cfg')
 const { candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
 
-module.exports = (name, extra = {}) => {
-  const config = createConfig(name, ['default', 'pkg', 'rc'], extra)
+module.exports = (name, options = {}) => {
+  const config = createConfig(name, options)
   const lconf = config.wxs.license
 
   return pack(config.bin.entry, config.bin.exe)

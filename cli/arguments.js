@@ -69,4 +69,11 @@ module.exports = [{
       return value
     }
   }
+}, {
+  key: 's',
+  details: {
+    alias: 'save',
+    type: 'boolean',
+    describe: 'save options in .wixrc file'
+  }
 }]
