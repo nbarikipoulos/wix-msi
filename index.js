@@ -2,11 +2,12 @@
 
 'use strict'
 
-const createConfig = require('./lib/cfg')
+const createConfig = require('./lib/config/cfg')
 const { candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
 
 module.exports = (name, options = {}) => {
   const config = createConfig(name, options)
+
   const lconf = config.wxs.license
 
   return pack(config.bin.entry, config.bin.exe)

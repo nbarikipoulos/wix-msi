@@ -2,8 +2,6 @@
 
 'use strict'
 
-const { validate: uuidValidate } = require('uuid')
-
 module.exports = [{
   key: 'l',
   details: {
@@ -60,14 +58,7 @@ module.exports = [{
   details: {
     alias: 'uuid',
     type: 'string',
-    describe: 'Uuid of the product',
-    coerce: (value) => {
-      const uuid = uuidValidate(value)
-      if (!uuid) {
-        throw new Error('Wrong uuid format!')
-      }
-      return value
-    }
+    describe: 'Uuid of the product'
   }
 }, {
   key: 's',

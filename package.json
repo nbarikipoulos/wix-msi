@@ -25,9 +25,12 @@
     "executable"
   ],
   "dependencies": {
+    "acorn": "^8.0.4",
+    "colors": "^1.4.0",
     "mustache": "^4.0.1",
     "pkg": "^4.4.9",
     "uuid": "^8.3.0",
+    "valid-url": "^1.0.9",
     "xmlbuilder2": "^2.3.1",
     "yargs": "^16.0.3"
   },
@@ -36,6 +39,7 @@
   },
   "files": [
     "/lib",
+    "/util",
     "/cli",
     "/assets"
   ],
@@ -46,6 +50,10 @@
   "bugs": {
     "url": "https://github.com/nbarikipoulos/wix-msi/issues"
   },
-  "os": ["win32"],
-  "cpu": ["x64"]
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ]
 }
