@@ -87,4 +87,4 @@ createMSI(name, options).then(_ => shouldSave
       JSON.stringify({ [name]: options }, null, 2)
     )
   : Promise.resolve(null)
-)
+).catch(err => { console.log(err.message) })

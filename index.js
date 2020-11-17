@@ -8,6 +8,10 @@ const { candle, light, pack, createWXS, createLicense } = require('./lib/ops.js'
 module.exports = (name, options = {}) => {
   const config = createConfig(name, options)
 
+  if (config === undefined) {
+    return Promise.reject(new Error('Aborted: found error(s) in input'))
+  }
+
   const lconf = config.wxs.license
 
   return pack(config.bin.entry, config.bin.exe)
@@ -18,4 +22,5 @@ module.exports = (name, options = {}) => {
     .then(_ => createWXS(config.file.wix, config.wxs))
     .then(_ => candle(config.file.wix, config.file.obj))
     .then(_ => light(config.file.obj, config.file.msi))
+    .catch(err => { console.log(err.message) })
 }
