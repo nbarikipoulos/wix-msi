@@ -38,7 +38,7 @@ const _argv = _ => {
   const result = {
     buildDir: argv.buildDir,
     exe: argv.exe,
-    homepage: argv.link,
+    homepage: argv.homepage,
     ico: argv.ico,
     banner: argv.banner,
     background: argv.background,
@@ -83,8 +83,8 @@ if (!('uuid' in options)) {
 
 createMSI(name, options).then(_ => shouldSave
   ? fs.promises.writeFile(
-    path.resolve(process.cwd(), RC_FILE),
-    JSON.stringify({ [name]: options }, null, 2)
-  )
+      path.resolve(process.cwd(), RC_FILE),
+      JSON.stringify({ [name]: options }, null, 2)
+    )
   : Promise.resolve(null)
 )
