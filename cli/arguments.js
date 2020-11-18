@@ -37,7 +37,7 @@ module.exports = [{
   details: {
     alias: 'ico',
     type: 'string',
-    describe: 'Icon in application panel (.ico file)'
+    describe: 'Image use as icon in application panel (.ico or .png file)'
   }
 }, {
   key: 'b',
