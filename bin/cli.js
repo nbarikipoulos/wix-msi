@@ -4,7 +4,7 @@
 
 'use strict'
 
-const fs = require('fs')
+const { readFileSync, promises: pfs } = require('fs')
 const path = require('path')
 
 const yargs = require('yargs')
@@ -39,7 +39,7 @@ const _argv = _ => {
     buildDir: argv.buildDir,
     exe: argv.exe,
     homepage: argv.homepage,
-    ico: argv.ico,
+    icon: argv.ico,
     banner: argv.banner,
     background: argv.background,
     uuid: argv.uuid
@@ -55,7 +55,7 @@ const _argv = _ => {
 const loadRCFile = (file) => {
   let option = {}
   try {
-    const buffer = fs.readFileSync(
+    const buffer = readFileSync(
       path.resolve(process.cwd(), file),
       'utf8'
     )
@@ -82,7 +82,7 @@ if (!('uuid' in options)) {
 }
 
 createMSI(name, options).then(_ => shouldSave
-  ? fs.promises.writeFile(
+  ? pfs.writeFile(
       path.resolve(process.cwd(), RC_FILE),
       JSON.stringify({ [name]: options }, null, 2)
     )
