@@ -56,7 +56,7 @@ class UpdateNValidate {
   }
 
   display () {
-    console.log('>> Check config')
+    console.log('> Check config')
     for (const p in this._result) {
       const level = this._result[p].validation.level
       console.log(
