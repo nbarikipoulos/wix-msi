@@ -3,7 +3,7 @@
 'use strict'
 
 const createConfig = require('./lib/config/cfg')
-const { ico, candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
+const { createDir, ico, candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
 
 module.exports = (name, options = {}) => {
   const config = createConfig(name, options)
@@ -17,12 +17,13 @@ module.exports = (name, options = {}) => {
 
   const p = (conditition, pProvider) => conditition ? pProvider() : Promise.resolve(null)
 
-  return Promise.all([
-    p(!icon.src.endsWith('.ico'), _ => ico(icon.src, icon.tgt)),
-    p(!lconf.skip, _ => createLicense(lconf.src, lconf.file)),
-    pack(config.bin.entry, config.bin.exe),
-    createWXS(config.file.wix, config.wxs)
-  ])
+  return createDir(config.buildDir)
+    .then(_ => Promise.all([
+      pack(config.bin.entry, config.bin.exe),
+      p(!icon.src.endsWith('.ico'), _ => ico(icon.src, icon.tgt)),
+      p(!lconf.skip, _ => createLicense(lconf.src, lconf.file)),
+      createWXS(config.file.wix, config.wxs)
+    ]))
     .then(_ => candle(config.file.wix, config.file.obj))
     .then(_ => light(config.file.obj, config.file.msi))
     .catch(err => { console.log(err) })
