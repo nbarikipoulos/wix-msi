@@ -36,7 +36,7 @@ const argv = yargs.argv
 
 const _argv = _ => {
   const result = {
-    buildDir: argv.buildDir,
+    buildDir: argv.dir,
     exe: argv.exe,
     homepage: argv.homepage,
     icon: argv.ico,
