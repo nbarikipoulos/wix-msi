@@ -7,17 +7,12 @@
 
 Package node.js application to a standalone executable and pack it into a msi installer (Windows only).
 
-- Create a binary which does not require node,
+- Create a standalone binary that does not require node,
 - Pack it in a windows msi installer that:
   - Extract info from package.json such as bin name, provider's name, and so on,
   - Automatically create a license panel in installer from LICENSE/LICENSE.md file, if any,
   - Automatically create in the windows start menu an entry that contains link to the homepage URL filled in package.json or provided in cli,
   - Automatically update the PATH environmement variable with the install folder.
-
-## Prerequisite
-
-MSI build step is based on the wix toolset project and then, it should be installed. see [here](https://wixtoolset.org).
-This module has been "tested" with the WIX release 3.11.2.
 
 ## Install
 

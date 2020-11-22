@@ -1,12 +1,13 @@
 {
   "name": "wix-msi",
   "version": "0.2.0",
-  "description": "Package node.js application to a standalone executable (i.e. that does not require node.js installed) and pack it into a msi installer",
+  "description": "Package node.js application to a standalone executable and pack it into a msi installer",
   "bin": {
     "wix-msi": "./bin/cli.js"
   },
   "main": "index.js",
   "scripts": {
+    "postinstall": "node ./wix-install.js",
     "test": "standard"
   },
   "homepage": "https://github.com/nbarikipoulos/wix-msi#readme",
@@ -26,11 +27,13 @@
   ],
   "dependencies": {
     "acorn": "^8.0.4",
+    "axios": "^0.21.0",
     "colors": "^1.4.0",
     "jimp": "^0.16.1",
     "mustache": "^4.0.1",
     "pkg": "^4.4.9",
     "png-to-ico": "^2.1.1",
+    "unzipper": "^0.10.11",
     "uuid": "^8.3.0",
     "valid-url": "^1.0.9",
     "xmlbuilder2": "^2.3.1",
@@ -43,7 +46,8 @@
     "/lib",
     "/util",
     "/cli",
-    "/assets"
+    "/assets",
+    "/wix-install.js"
   ],
   "repository": {
     "type": "git",
