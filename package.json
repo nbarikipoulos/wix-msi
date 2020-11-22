@@ -1,6 +1,6 @@
 {
   "name": "wix-msi",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Package node.js application to a standalone executable and pack it into a msi installer",
   "bin": {
     "wix-msi": "./bin/cli.js"
