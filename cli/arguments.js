@@ -37,23 +37,31 @@ module.exports = [{
   details: {
     alias: 'ico',
     type: 'string',
-    describe: 'Image use as icon in application panel (.ico or .png file)'
+    describe: 'Image use as icon in application panel: an ico/png image'
   }
 }, {
   key: 'b',
   details: {
     alias: 'banner',
     type: 'string',
-    describe: 'MSI banner: (493x58) jpg'
+    describe: 'Installer image used in banner: a jpg/png image'
   }
 }, {
   key: 'B',
   details: {
     alias: 'background',
     type: 'string',
-    describe: 'MSI background: (493x312) jpg'
+    describe: 'Installer left panel image: a jpg/png image'
   }
 }, {
+  key: 'c',
+  details: {
+    alias: 'color',
+    type: 'string',
+    describe: 'Installer background color: a css compliant color'
+  }
+},
+{
   key: 'U',
   details: {
     alias: 'uuid',
@@ -65,6 +73,7 @@ module.exports = [{
   details: {
     alias: 'save',
     type: 'boolean',
+    default: false,
     describe: 'save options in .wixrc file'
   }
 }]

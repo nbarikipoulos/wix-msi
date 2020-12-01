@@ -3,7 +3,7 @@
 'use strict'
 
 const createConfig = require('./lib/config/cfg')
-const { createDir, ico, candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
+const { createDir, createIcon, createBackground, createBanner, candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
 
 module.exports = (name, options = {}) => {
   const config = createConfig(name, options)
@@ -12,19 +12,26 @@ module.exports = (name, options = {}) => {
     return Promise.reject(new Error('Aborted: found error(s) in input'))
   }
 
+  const fconf = config.file
+
   const lconf = config.wxs.license
   const icon = config.wxs.icon
+  const color = config.wxs.color
+  const banner = config.wxs.banner
+  const background = config.wxs.background
 
   const p = (conditition, pProvider) => conditition ? pProvider() : Promise.resolve(null)
 
   return createDir(config.buildDir)
     .then(_ => Promise.all([
       pack(config.bin.entry, config.bin.exe),
-      p(!icon.src.endsWith('.ico'), _ => ico(icon.src, icon.tgt)),
+      p(!icon.src.endsWith('.ico'), _ => createIcon(icon.src, icon.file)),
       p(!lconf.skip, _ => createLicense(lconf.src, lconf.file)),
-      createWXS(config.file.wix, config.wxs)
+      createBackground(background.src, background.file, color),
+      createBanner(banner.src, banner.file, color),
+      createWXS(fconf.wix, config.wxs)
     ]))
-    .then(_ => candle(config.file.wix, config.file.obj))
-    .then(_ => light(config.file.obj, config.file.msi))
+    .then(_ => candle(fconf.wix, fconf.obj))
+    .then(_ => light(fconf.obj, fconf.msi))
     .catch(err => { console.log(err) })
 }

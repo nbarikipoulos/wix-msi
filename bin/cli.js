@@ -40,6 +40,7 @@ const _argv = _ => {
     exe: argv.exe,
     homepage: argv.homepage,
     icon: argv.ico,
+    color: argv.color,
     banner: argv.banner,
     background: argv.background,
     uuid: argv.uuid
