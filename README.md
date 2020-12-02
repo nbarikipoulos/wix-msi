@@ -7,6 +7,10 @@
 
 Package node.js application to a standalone executable and pack it into a msi installer (Windows only).
 
+<p align="center">
+<img src="./doc/installer-intro.png">
+</p>
+
 - Create a standalone binary that does not require node,
 - Pack it in a windows msi installer that:
   - Extract info from package.json such as bin name, provider's name, and so on,
@@ -16,6 +20,27 @@ Package node.js application to a standalone executable and pack it into a msi in
 - Allow to customize installer and others as executable name, etc.
 
 Note it does not need any third-software pre-installed (_i.e._ wixtooltest) as prerequiste.
+
+## Table of Contents
+
+<!-- toc -->
+
+- [Install](#install)
+- [Use](#use)
+- [Customize Installer and Installation](#customize-installer-and-installation)
+  * [Important Settings](#important-settings)
+    + [UUID](#uuid)
+    + [Executable name](#executable-name)
+  * [Installer UI](#installer-ui)
+  * [Windows Applications Menu and Panel](#windows-applications-menu-and-panel)
+- [Options](#options)
+- [Rc file](#rc-file)
+- [Known Limitations](#known-limitations)
+- [Versioning](#versioning)
+- [Credits](#credits)
+- [License](#license)
+
+<!-- tocstop -->
 
 ## Install
 
