@@ -1,12 +1,13 @@
 {
   "name": "wix-msi",
-  "version": "0.4.0-beta.1",
+  "version": "0.4.0",
   "description": "Package node.js application to a standalone executable and pack it into a msi installer",
   "bin": {
     "wix-msi": "./bin/cli.js"
   },
   "main": "index.js",
   "scripts": {
+    "gendoc": "markdown-toc -i README.md",
     "postinstall": "node ./wix-install.js",
     "test": "standard"
   },
@@ -42,6 +43,7 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
+    "markdown-toc": "^1.2.0",
     "standard": "*"
   },
   "files": [
