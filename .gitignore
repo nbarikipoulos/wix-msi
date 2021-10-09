@@ -1,4 +1,5 @@
 node_modules/
 wix_bin/
+.wixrc
 
 .DS_Store
