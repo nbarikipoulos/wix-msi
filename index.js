@@ -1,37 +1,37 @@
-/*! Copyright (c) 2020 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
 
 'use strict'
 
-const createConfig = require('./lib/config/cfg')
-const { createDir, createIcon, createBackground, createBanner, candle, light, pack, createWXS, createLicense } = require('./lib/ops.js')
+const createConfig = require('./lib/config')
+const ops = require('./lib/ops')
+const { doExecPromise: p } = require('./util/misc')
 
-module.exports = (name, options = {}) => {
-  const config = createConfig(name, options)
+module.exports = (name, input = {}) => {
+  // Validate input and "organize" them
+  const config = createConfig(name, input)
 
   if (config === undefined) {
     return Promise.reject(new Error('Aborted: found error(s) in input'))
   }
 
-  const fconf = config.file
+  const bin = config.bin
+  const files = config.file
+  const wxs = config.wxs
+  const icon = wxs.icon
+  const license = wxs.license
+  const banner = wxs.banner
 
-  const lconf = config.wxs.license
-  const icon = config.wxs.icon
-  const color = config.wxs.color
-  const banner = config.wxs.banner
-  const background = config.wxs.background
-
-  const p = (conditition, pProvider) => conditition ? pProvider() : Promise.resolve(null)
-
-  return createDir(config.buildDir)
+  // Main job
+  return ops.createDir(config.dir)
     .then(_ => Promise.all([
-      pack(config.bin.entry, config.bin.exe),
-      p(!icon.src.endsWith('.ico'), _ => createIcon(icon.src, icon.file)),
-      p(!lconf.skip, _ => createLicense(lconf.src, lconf.file)),
-      createBackground(background.src, background.file, color),
-      createBanner(banner.src, banner.file, color),
-      createWXS(fconf.wix, config.wxs)
+      ops.pack(bin.entry, bin.exe),
+      p(!icon.src.endsWith('.ico'), _ => ops.createIcon(icon.src, icon.file)),
+      p(!license.skip, _ => ops.createLicense(license.src, license.file)),
+      ops.createBackground(wxs.background.src, wxs.background.file, wxs.color),
+      ops.createBanner(banner.src, banner.file, wxs.color),
+      ops.createWXS(files.wix, config.wxs)
     ]))
-    .then(_ => candle(fconf.wix, fconf.obj))
-    .then(_ => light(fconf.obj, fconf.msi))
+    .then(_ => ops.candle(files.wix, files.obj))
+    .then(_ => ops.light(files.obj, files.msi))
     .catch(err => { console.log(err) })
 }

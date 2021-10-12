@@ -1,17 +1,21 @@
-/*! Copyright (c) 2020 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
 
 const path = require('path')
-const acorn = require('acorn')
+const fs = require('fs')
 
-const getFuncArgs = (func) => acorn.parse(func, { ecmaVersion: 'latest' })
-  .body[0]
-  .expression
-  .params
-  .map(n => n.name)
-  .filter(v => v !== '_')
+const innerPath = (...innerPaths) => path.resolve(__dirname, '..', ...innerPaths)
 
-const MODULE_ROOT_PATH = path.join(__dirname, '..')
-const innerPath = (...innerPaths) => path.join(MODULE_ROOT_PATH, ...innerPaths)
+const doExecPromise = (test, promiseProvider) => test ? promiseProvider() : Promise.resolve(null)
+
+const getPackageData = (props = ['bin', 'version', 'author', 'homepage']) => {
+  const packageFile = path.resolve(process.cwd(), 'package.json')
+  const json = JSON.parse(fs.readFileSync(packageFile, 'utf8'))
+
+  return props.reduce((acc, prop) => {
+    acc[prop] = json[prop]
+    return acc
+  }, {})
+}
 
 // ////////////////////////////////
 // ////////////////////////////////
@@ -20,7 +24,8 @@ const innerPath = (...innerPaths) => path.join(MODULE_ROOT_PATH, ...innerPaths)
 // ////////////////////////////////
 
 module.exports = {
-  getFuncArgs,
   innerPath,
-  WIX_FOLDER: innerPath('wix_bin')
+  WIX_FOLDER: innerPath('wix_bin'),
+  getPackageData,
+  doExecPromise
 }

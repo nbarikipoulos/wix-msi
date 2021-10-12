@@ -29,7 +29,6 @@
     "executable"
   ],
   "dependencies": {
-    "acorn": "^8.0.4",
     "axios": "^0.21.0",
     "colors": "^1.4.0",
     "jimp": "^0.16.1",
@@ -66,5 +65,8 @@
   ],
   "cpu": [
     "x64"
-  ]
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }
