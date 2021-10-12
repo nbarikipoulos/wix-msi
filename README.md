@@ -133,6 +133,7 @@ option | desc | value | default
 -e / --exe | modify the executable name | string | package.bin[target_bin]
 -d / --dir | build folder | path(*) | ./build
 -H / --homepage | URL of the shortcut added to menu directory (not added if undefined) | URL | package.homepage
+-a / --author | Provider name of the package | string | package.author
 -i / --ico | Icon displayed in Windows application panel (.ico or png file). Note png file will be automatically resized to a 256x256 image | path(*) | assets/icon.png from this module
 -b / --banner | Image used on the right of the top banner of installer panels (a 90x48 png/jpg image). Note it will be automatically resized to expected size keeping its ratio as best | path(*) | assets/banner.png from this module
 -B / --background | left image displayed in the introduction panel (a 493x176 png/jpg image). Note it will be automatically resized to expected size| path(*) | assets/background.png from this module

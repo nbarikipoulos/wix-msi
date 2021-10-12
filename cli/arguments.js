@@ -88,6 +88,13 @@ const ARGS = [{
     describe: 'Add a shorcut to the project homepage if provided'
   }
 }, {
+  key: 'a',
+  details: {
+    alias: 'author',
+    type: 'string',
+    describe: 'Override the author field'
+  }
+}, {
   key: 'i',
   details: {
     alias: 'ico',
