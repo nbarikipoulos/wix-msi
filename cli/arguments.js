@@ -107,7 +107,7 @@ const ARGS = [{
   details: {
     alias: 'banner',
     type: 'string',
-    default: '__package/assets/banner.png', // innerPath('assets/banner.png'),
+    default: '__package/assets/banner.png',
     describe: 'Installer image used in top-right of banner: a jpg/png image'
   }
 }, {
