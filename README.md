@@ -2,8 +2,8 @@
 
 [![NPM version][npm-image]][npm-url]
 [![JavaScript Style Guide][standard-image]][standard-url]
-[![Dependency Status][david-image]][david-url]
-[![devDependency Status][david-dev-image]][david-dev-url]
+[![Language grade: JavaScript][lgtm-image]][lgtm-url]
+[![Maintainability][code-climate-image]][code-climate-url]
 
 Package node.js application to a standalone executable and pack it into a msi installer (Windows only).
 
@@ -11,15 +11,17 @@ Package node.js application to a standalone executable and pack it into a msi in
 <img src="./doc/installer-intro.png">
 </p>
 
+This module will:
 - Create a standalone binary that does not require node,
-- Pack it in a windows msi installer that:
+- Pack it into a Windows msi installer that:
   - Extract info from package.json such as bin name, provider's name, and so on,
   - Automatically create a license panel in installer from LICENSE/LICENSE.md file, if any,
   - Automatically create in the windows start menu an entry that contains link to the homepage URL filled in package.json or provided in cli,
   - Automatically update the PATH environmement variable with the install folder.
-- Allow to customize installer and others as executable name, etc.
+- Allow to customize the installer and others as executable name, etc.,
+- Next to the previous point, a validation of the user's input is performed to ensure their consistency.
 
-Note it does not need any third-software pre-installed (_i.e._ wixtooltest) as prerequiste.
+Note it does not require any third-software pre-installed (binaries of the installer, _i.e._ wixtoolset, will be locally downloaded in the package installation folder from its official repository).
 
 ## Table of Contents
 
@@ -44,7 +46,7 @@ Note it does not need any third-software pre-installed (_i.e._ wixtooltest) as p
 
 ## Install
 
-As this module introduces contraints to both target os and arch (respectively  win32 and x64), install it globally, as an optional dependency or launch it using npx to avoid to constrain your module with these settings.
+As this module introduces constraints to both target os and arch (respectively  win32 and x64), install it globally, as an optional dependency or launch it using npx to avoid to constrain your module with these settings.
 
 ```shell
 npm i wix-msi -g
@@ -55,6 +57,7 @@ npm i wix-msi -g
 ```shell
 wix-msi target_bin
 ```
+where target_bin is a bin entry of the package.json
 
 ## Customize Installer and Installation
 
@@ -90,8 +93,7 @@ Customization of the installer UI could be performed using the following options
   - This place is for a {90x48} image,
   - Image will be automatically resized to fit the expected place trying to keep user's image ratio at best.
 - __Background color__:
-  - Using -c/--color flag with a css-like color (_i.e._ a named color or #hhhhhh) allows to
-  customize (part of) the background color of panels.
+  - Using -c/--color flag with a css-like color (_i.e._ either named or hexadecimal one) allows to customize (part of) the background color of panels.
 - __License panel__:
   - Automatically added to the installer if a LICENSE/LICENSE.MD file is found,
   - Adding --no-l/--no-license flag allows to not include it.
@@ -156,18 +158,17 @@ A .wixrc file could be use to store options:
 }
 ```
 
-Or will be generated using the -s/--save option.
+Using the -s/--save option will generated it if the validation of user's settings succeed.
 
 ## Known Limitations
 
-- Package version should follow the x.y.z format (it does not work with beta/rc or other usual suffix of node module version). If not, the pre-validation step will raise and
+- Package version should follow the x.y.z format (it does not work with beta/rc or other usual suffix of version of node module). If not, the validation step will raise and
 error and stop the packaging.
-
-
+- Note it does not deal with signing the produced installer _i.e._ installing the msi on other computer could araise the "Windows Defender Smartscreen" about unrecognized app. Have a look ([here][stack-url]) about the need of EV certificates for such purposes.
 
 ## Versioning
 
-While it's still in beta, version will follow v0.Y.Z, where:
+While it's still in beta, version will follow v0.Y.Z format, where:
 - Y: Major (could imply breaking changes),
 - Z: Minor or patch.
 
@@ -183,7 +184,8 @@ This module is MIT licensed. See [LICENSE](./LICENSE.md).
 [npm-image]: https://img.shields.io/npm/v/wix-msi.svg
 [standard-url]: https://standardjs.com
 [standard-image]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[david-image]: https://img.shields.io/david/nbarikipoulos/wix-msi.svg
-[david-url]: https://david-dm.org/nbarikipoulos/wix-msi
-[david-dev-image]: https://img.shields.io/david/dev/nbarikipoulos/wix-msi.svg
-[david-dev-url]: https://david-dm.org/nbarikipoulos/wix-msi?type=dev
+[lgtm-url]: https://lgtm.com/projects/g/nbarikipoulos/wix-msi
+[lgtm-image]: https://img.shields.io/lgtm/grade/javascript/g/nbarikipoulos/wix-msi.svg?logo=lgtm&logoWidth=18
+[code-climate-url]: https://codeclimate.com/github/nbarikipoulos/wix-msi/maintainability
+[code-climate-image]: https://api.codeclimate.com/v1/badges/796eb7fd76e1ae8e24fa/maintainability
+[stack-url]: https://stackoverflow.com/a/51113771
