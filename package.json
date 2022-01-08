@@ -30,7 +30,7 @@
   ],
   "dependencies": {
     "axios": "^0.23.0",
-    "colors": "^1.4.0",
+    "colors": "1.4.0",
     "jimp": "^0.16.1",
     "mustache": "^4.0.1",
     "pkg": "^5.3.3",
