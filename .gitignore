@@ -1,5 +1,6 @@
 node_modules/
 wix_bin/
 .wixrc
+build/
 
 .DS_Store
