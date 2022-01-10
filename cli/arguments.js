@@ -1,4 +1,4 @@
-/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+/*! Copyright (c) 2020-22 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
 
 'use strict'
 
@@ -97,7 +97,7 @@ const ARGS = [{
 }, {
   key: 'i',
   details: {
-    alias: 'ico',
+    alias: 'icon',
     type: 'string',
     default: '__package/assets/icon.png',
     describe: 'Image use as icon in application panel: an ico/png image'
