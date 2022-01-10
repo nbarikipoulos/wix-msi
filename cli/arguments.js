@@ -5,29 +5,45 @@
 const { readFileSync, promises: pfs } = require('fs')
 const path = require('path')
 
-const RC_FILE = '.wixrc'
+const isFromCLI = require('./yargs-utils')
 
-const get = (alias) => ARGS.find(arg => arg.details.alias === alias)
+// Get value of option to use from rc file and cli.
+// Note value must be defined => option will be set
+// to default value of the argument if not provided
+const getOptionValues = (argv, file = RC_FILE) => {
+  const result = {}
 
-const getOptions = (argv, file = RC_FILE) => {
-  // Options from rc file
-  const rc = loadRCFile(file)
-  const name = argv._[0]
+  const name = argv._[0] // target bin name
 
-  // From cli
-  // Remove cli args not used for configuration
-  const cli = {}
-  for (const arg of ARGS.filter(arg => arg.details.alias !== 'save')) {
-    const alias = arg.details.alias
-    if (undefined !== argv[alias]) {
-      cli[alias] = argv[alias]
-    }
+  // Options for this bin from rc file
+  const rc = loadRCFile(file)?.[name] ?? {}
+
+  // Remove option not used for the stuff
+  const descs = ARGS.filter(arg => arg.details?.alias !== 'save')
+
+  for (const desc of descs) {
+    const key = desc.key
+    const alias = desc.details.alias
+    const rcValue = rc[alias]
+    const cliValue = argv[alias] // User or default
+
+    const fromCLI = isFromCLI(key, alias)
+
+    const selectCLIValue = fromCLI || rcValue === undefined
+
+    result[alias] = selectCLIValue ? cliValue : rcValue
   }
 
-  return { ...rc[name], ...cli }
+  return result
 }
 
-const loadRCFile = (file) => {
+// ////////////////////////////////
+// wixrc file utilities
+// ////////////////////////////////
+
+const RC_FILE = '.wixrc'
+
+const loadRCFile = (file = RC_FILE) => {
   let option = {}
   try {
     const buffer = readFileSync(
@@ -46,7 +62,7 @@ const saveOptions = (name, options, file = RC_FILE) => {
     // Get default in arguments
     const defaultValue = get(k)?.details?.default
     // No default defined or values are different
-    if (undefined === defaultValue || v !== defaultValue) {
+    if (defaultValue === undefined || v !== defaultValue) {
       toSave[k] = v
     }
   }
@@ -56,6 +72,9 @@ const saveOptions = (name, options, file = RC_FILE) => {
     JSON.stringify({ [name]: toSave }, null, 2)
   )
 }
+
+// key or alias
+const get = (name) => ARGS.find(arg => arg.key === name || arg.details?.alias === name)
 
 const ARGS = [{
   key: 'l',
@@ -144,9 +163,14 @@ const ARGS = [{
   }
 }]
 
+// ////////////////////////////////
+// ////////////////////////////////
+// Public API
+// ////////////////////////////////
+// ////////////////////////////////
+
 module.exports = {
   ARGS,
-  get,
-  getOptions,
+  getOptionValues,
   saveOptions
 }

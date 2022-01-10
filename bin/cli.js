@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+/*! Copyright (c) 2020-22 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
 
 'use strict'
 
@@ -8,7 +8,7 @@ const yargs = require('yargs')
 const { v4: generateUuid } = require('uuid')
 
 const createMSI = require('../index')
-const { ARGS, getOptions, saveOptions } = require('../cli/arguments')
+const { ARGS, getOptionValues, saveOptions } = require('../cli/arguments')
 const { doExecPromise: p } = require('../util/misc')
 
 // ////////////////////////////////
@@ -37,7 +37,8 @@ ARGS.forEach(arg => yargs.option(arg.key, arg.details))
 // Bin name is positional (and mandatory)
 const name = yargs.argv._[0]
 
-const options = getOptions(yargs.argv)
+// Get option values for rc file and cli
+const options = getOptionValues(yargs.argv)
 
 let save = yargs.argv.save
 
