@@ -29,17 +29,17 @@
     "executable"
   ],
   "dependencies": {
-    "axios": "^0.23.0",
+    "axios": "^0.24.0",
     "colors": "1.4.0",
     "jimp": "^0.16.1",
     "mustache": "^4.0.1",
-    "pkg": "^5.3.3",
-    "png-to-ico": "^2.1.1",
+    "pkg": "^5.5.2",
+    "png-to-ico": "^2.1.2",
     "unzipper": "^0.10.11",
     "uuid": "^8.3.0",
     "valid-url": "^1.0.9",
     "xmlbuilder2": "^3.0.2",
-    "yargs": "^17.2.1"
+    "yargs": "^17.3.1"
   },
   "devDependencies": {
     "markdown-toc": "^1.2.0",
