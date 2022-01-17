@@ -1,4 +1,4 @@
-/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+/*! Copyright (c) 2020-22 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
 
 'use strict'
 
@@ -14,7 +14,7 @@ module.exports = (name, input = {}) => {
     return Promise.reject(new Error('Aborted: found error(s) in input'))
   }
 
-  const bin = config.bin
+  const pack = config.pack
   const files = config.file
   const wxs = config.wxs
   const icon = wxs.icon
@@ -24,7 +24,7 @@ module.exports = (name, input = {}) => {
   // Main job
   return ops.createDir(config.dir)
     .then(_ => Promise.all([
-      ops.pack(bin.entry, bin.exe),
+      ops.pack(config.name, pack.entry, pack.exe, pack.moduleFiles),
       p(!icon.src.endsWith('.ico'), _ => ops.createIcon(icon.src, icon.file)),
       p(!license.skip, _ => ops.createLicense(license.src, license.file)),
       ops.createBackground(wxs.background.src, wxs.background.file, wxs.color),
@@ -33,5 +33,5 @@ module.exports = (name, input = {}) => {
     ]))
     .then(_ => ops.candle(files.wix, files.obj))
     .then(_ => ops.light(files.obj, files.msi))
-    .catch(err => { console.log(err) })
+    .catch(console.log)
 }

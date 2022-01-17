@@ -37,6 +37,7 @@ Note it does not require any third-software pre-installed (binaries of the insta
   * [Windows Applications Menu and Panel](#windows-applications-menu-and-panel)
 - [Options](#options)
 - [Rc file](#rc-file)
+- [Mapping Project Sources](#mapping-project-sources)
 - [Known Limitations](#known-limitations)
 - [Versioning](#versioning)
 - [Credits](#credits)
@@ -131,17 +132,18 @@ __Windows Application Panel__
 
 option | desc | value | default
 --- | --- | --- | ---
--l / --license | include license panel in msi installer (Done if a LICENSE or LICENSE.md file is found) | boolean | true
--e / --exe | modify the executable name | string | package.bin[target_bin]
 -d / --dir | build folder | path(*) | ./build
+-U / --uuid | product unique identifier | uuid  | automatically generated if not provided (and saved in wixrc file)
+-e / --exe | modify the executable name | string | package.bin[target_bin]
+-f / --files | use the 'files' entry of package.json to get sources (see [here](#mapping-project-sources))| boolean | false
+-l / --license | include license panel in msi installer (Done if a LICENSE or LICENSE.md file is found) | boolean | true
 -H / --homepage | URL of the shortcut added to menu directory (not added if undefined) | URL | package.homepage
--a / --author | Provider name of the package | string | package.author
--i / --icon | Icon displayed in Windows application panel (.ico or png file). Note png file will be automatically resized to a 256x256 image | path(*) | assets/icon.png from this module
--b / --banner | Image used on the right of the top banner of installer panels (a 90x48 png/jpg image). Note it will be automatically resized to expected size keeping its ratio as best | path(*) | assets/banner.png from this module
+-a / --author | provider of the package | string | package.author
+-i / --icon | icon displayed in Windows application panel (.ico or png file). Note png file will be automatically resized to a 256x256 image | path(*) | assets/icon.png from this module
+-b / --banner | image used on the right of the top banner of installer panels (a 90x48 png/jpg image). Note it will be automatically resized to expected size keeping its ratio as best | path(*) | assets/banner.png from this module
 -B / --background | left image displayed in the introduction panel (a 493x176 png/jpg image). Note it will be automatically resized to expected size| path(*) | assets/background.png from this module
--c / --color | Background color of panels  | css color | 'white'
--U / --uuid | Product unique identifier | uuid  | automatically generated if not provided (and saved in wixrc file)
--s / --save | Save settings in .wixrc file | boolean  | n.a.
+-c / --color | background color of panels  | css color | 'white'
+-s / --save | save settings in .wixrc file | boolean  | n.a.
 
 (*) path must be relative from the execution directory.
 
@@ -157,8 +159,16 @@ A .wixrc file could be use to store options:
   }
 }
 ```
-
 Using the -s/--save option will generated it if the validation of user's settings succeed.
+
+## Mapping Project Sources
+
+Packaging the application in a standalone executable is done via the [pkg](https://github.com/vercel/pkg) module.
+
+By default, it maps required sources/deps via __calls to require but it does deal with non-literal argument__ and then, it needs more info to find sources/deps.
+
+For such case, the -f/--files option has been introduced in order to use the 'files' entry of the package.json to perform this task.
+Note, in this case, all matching files will be included and not only the required ones as for default case.
 
 ## Known Limitations
 

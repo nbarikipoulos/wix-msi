@@ -2,9 +2,10 @@
 
 'use strict'
 
-const { readFileSync, promises: pfs } = require('fs')
+const { promises: pfs } = require('fs')
 const path = require('path')
 
+const { loadJSON } = require('../util/misc')
 const isFromCLI = require('./yargs-utils')
 
 // Get value of option to use from rc file and cli.
@@ -43,17 +44,7 @@ const getOptionValues = (argv, file = RC_FILE) => {
 
 const RC_FILE = '.wixrc'
 
-const loadRCFile = (file = RC_FILE) => {
-  let option = {}
-  try {
-    const buffer = readFileSync(
-      path.resolve(process.cwd(), file),
-      'utf8'
-    )
-    option = JSON.parse(buffer)
-  } catch (error) { /* Do nothing */ }
-  return option
-}
+const loadRCFile = (file = RC_FILE) => loadJSON(RC_FILE) ?? {}
 
 const saveOptions = (name, options, file = RC_FILE) => {
   // Do not save default
@@ -160,6 +151,15 @@ const ARGS = [{
     type: 'boolean',
     default: false,
     describe: `Save options in ${RC_FILE} file`
+  }
+}, {
+  key: 'f',
+  details: {
+    alias: 'files',
+    type: 'boolean',
+    default: false,
+    describe: 'Use \'files\' prop in package.json for file dependencies' +
+      ' (in case of use of non-literal arg in require).'
   }
 }]
 
