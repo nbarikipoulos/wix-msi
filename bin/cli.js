@@ -43,7 +43,7 @@ const options = getOptionValues(yargs.argv)
 let save = yargs.argv.save
 
 // check if uuid is provided
-if (!('uuid' in options)) {
+if (options.uuid === undefined) {
   options.uuid = generateUuid()
   save = true // then enforce saving options
 }
