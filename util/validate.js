@@ -1,6 +1,11 @@
 'use strict'
 
-const colors = require('colors')
+const {
+  bgGreen: bgOK,
+  bgRed: bgKO,
+  bgYellow: bgWarning,
+  bgBlue: bgInfo
+} = require('colorette')
 
 class ValidationMsg {
   constructor (level, message) {
@@ -97,10 +102,10 @@ const _prettify = (errMsg, showDetails = true) => {
   let result = ''
 
   switch (errMsg.level) {
-    case 'ok': result += colors.green.inverse('OK'); break
-    case 'info': result += colors.blue.inverse('INFO'); break
-    case 'warning': result += colors.yellow.inverse('WARNING'); break
-    case 'error': result += colors.red.inverse('ERROR'); break
+    case 'ok': result += bgOK('OK'); break
+    case 'info': result += bgInfo('INFO'); break
+    case 'warning': result += bgWarning('WARNING'); break
+    case 'error': result += bgKO('ERROR'); break
     default: /* Do nothing */
   }
 
