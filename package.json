@@ -9,7 +9,8 @@
   "scripts": {
     "gendoc": "markdown-toc -i README.md",
     "postinstall": "node ./wix-install.js",
-    "test": "standard"
+    "lint": "standard",
+    "test": "npm run lint"
   },
   "homepage": "https://github.com/nbarikipoulos/wix-msi#readme",
   "author": "Nicolas Barriquand <nicolas.barriquand@outlook.fr>",
