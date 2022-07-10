@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "markdown-toc": "^1.2.0",
-    "standard": "*"
+    "standard": "^17.0.0"
   },
   "files": [
     "/lib",
