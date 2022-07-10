@@ -1,5 +1,3 @@
-/*! Copyright (c) 2022 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
-
 'use strict'
 
 // Check is option was provided by user on cli

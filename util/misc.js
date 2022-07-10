@@ -1,4 +1,4 @@
-/*! Copyright (c) 2020-22 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
+'use strict'
 
 const path = require('path')
 const fs = require('fs')

@@ -1,5 +1,3 @@
-/*! Copyright (c) 2020-21 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
-
 'use strict'
 
 const { promises: pfs } = require('fs')

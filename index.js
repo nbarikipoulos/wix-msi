@@ -1,5 +1,3 @@
-/*! Copyright (c) 2020-22 Nicolas Barriquand <nicolas.barriquand@outlook.fr>. MIT licensed. */
-
 'use strict'
 
 const createConfig = require('./lib/config')
