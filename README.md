@@ -165,15 +165,24 @@ Using the -s/--save option will generated it if the validation of user's setting
 
 Packaging the application in a standalone executable is done via the [pkg](https://github.com/vercel/pkg) module.
 
-By default, it maps required sources/deps via __calls to require but it does deal with non-literal argument__ and then, it needs more info to find sources/deps.
+By default, mapping of the required files/deps is done via the 'bin' property of the package.json and then found via __the calls done to 'require'__ but:
+- __it does not deal with non-literal argument__ aka call of type:
+  ```js
+    const m = require(variable) // Not supported
+  ```
+- Use of __ESM is not supported (yet)__ aka call of 'import'
+  ```js
+    import a from 'a' // Not supported
+  ```
 
-For such case, the -f/--files option has been introduced in order to use the 'files' entry of the package.json to perform this task.
-Note, in this case, all matching files will be included and not only the required ones as for default case.
+For such case, the -f/--files option has been introduced in order to use the 'files' property of the package.json to perform this task.
+Note, in this case, all files matching with the glob patterns of this property will be included and not only the required ones as for default case.
 
 ## Known Limitations
 
-- Package version should follow the x.y.z format (it does not work with beta/rc or other usual suffix of version of node module). If not, the validation step will raise and
-error and stop the packaging.
+- __The 'bin' property of the package.json must not be provided as a string__, but as an object,
+- The mapping of the sources to pack is done for CommonJS modules (__ESM is not supported by default__.) See [here](#mapping-project-sources) how to bypass this limitation,
+- Package version should strictly follow the x.y.z format where x,y and z are integers (__it does not work with beta/rc or other usual suffix used for package version__). If not, the validation step will raise and error and stop the packaging,
 - Note it does not deal with signing the produced installer _i.e._ installing the msi on other computer could araise the "Windows Defender Smartscreen" about unrecognized app. Have a look ([here][stack-url]) about the need of EV certificates for such purposes.
 
 ## Versioning
