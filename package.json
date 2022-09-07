@@ -34,7 +34,7 @@
     "colorette": "^2.0.19",
     "mustache": "^4.0.1",
     "pkg": "^5.5.2",
-    "png-to-ico": "^2.1.2",
+    "png-to-ico": "^2.1.7",
     "sharp": "^0.30.7",
     "unzipper": "^0.10.11",
     "uuid": "^8.3.0",
