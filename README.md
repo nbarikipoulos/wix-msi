@@ -36,7 +36,7 @@ Note it does not require any third-software pre-installed (binaries of the insta
   * [Installer UI](#installer-ui)
   * [Windows Applications Menu and Panel](#windows-applications-menu-and-panel)
 - [Options](#options)
-- [Rc file](#rc-file)
+- [Rc File](#rc-file)
 - [Mapping Project Sources](#mapping-project-sources)
 - [Known Limitations](#known-limitations)
 - [Versioning](#versioning)
@@ -58,7 +58,9 @@ npm i wix-msi -g
 ```shell
 wix-msi target_bin
 ```
-where target_bin is a bin entry of the package.json
+where target_bin is a bin entry of the package.json.
+
+Note this package __only support CJS module and does not deal with ESM (yet)__ aka packaged node application __must use require/module.exports and not ES6 import/export__.
 
 ## Customize Installer and Installation
 
@@ -147,7 +149,7 @@ option | desc | value | default
 
 (*) path must be relative from the execution directory.
 
-## Rc file
+## Rc File
 
 A .wixrc file could be use to store options:
 
@@ -170,10 +172,6 @@ By default, mapping of the required files/deps is done via the 'bin' property of
   ```js
     const m = require(variable) // Not supported
   ```
-- Use of __ESM is not supported (yet)__ aka call of 'import'
-  ```js
-    import a from 'a' // Not supported
-  ```
 
 For such case, the -f/--files option has been introduced in order to use the 'files' property of the package.json to perform this task.
 Note, in this case, all files matching with the glob patterns of this property will be included and not only the required ones as for default case.
@@ -181,9 +179,13 @@ Note, in this case, all files matching with the glob patterns of this property w
 ## Known Limitations
 
 - __The 'bin' property of the package.json must not be provided as a string__, but as an object,
-- The mapping of the sources to pack is done for CommonJS modules (__ESM is not supported by default__.) See [here](#mapping-project-sources) how to bypass this limitation,
+- __ESM is not (yet) supported__:
+  ```js
+    import a from 'a' // Not supported
+  ```
+
 - Package version should strictly follow the x.y.z format where x,y and z are integers (__it does not work with beta/rc or other usual suffix used for package version__). If not, the validation step will raise and error and stop the packaging,
-- Note it does not deal with signing the produced installer _i.e._ installing the msi on other computer could araise the "Windows Defender Smartscreen" about unrecognized app. Have a look ([here][stack-url]) about the need of EV certificates for such purposes.
+- It does not deal with signing the produced installer _i.e._ installing the msi on other computer could araise the "Windows Defender Smartscreen" about unrecognized app. Have a look ([here][stack-url]) about the need of EV certificates for such purposes.
 
 ## Versioning
 
